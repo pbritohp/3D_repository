@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="_3d_repo.View.RepositoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+    <Grid>
+        <ListBox x:Name="repositoryListBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding FolderName}" Margin="5"/>
+
+                        <Button Grid.Column="1" Grid.Row="0"
+                                Content="Delete Folder"
+                                Click="DeleteFolderButton_Click"
+                                Tag="{Binding FolderName}"
+                                Margin="10,0,0,0"
+                                Height="20"
+                                HorizontalAlignment="Left"/>
+
+                        <Button Grid.Column="2" Grid.Row="0"
+                                Content="Rename Folder"
+                                Click="RenameFolderButton_Click"
+                                Tag="{Binding FolderName}"
+                                Margin="10,0,0,0"
+                                Height="20"
+                                HorizontalAlignment="Left"/>
+
+                        <Expander Grid.ColumnSpan="4" Grid.Row="1" Expanded="Expander_Expanded" Margin="5,0,0,0">
+                            <ItemsControl ItemsSource="{Binding Files}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="100"/>
+                                                    <ColumnDefinition Width="300"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="Black"/>
+                                                <Grid Grid.Column="1">
+                                                    <Button Content="Download"
+                                                     Click="DownloadButton_Click"
+                                                     Tag="{Binding}"
+                                                     DataContext="{Binding RelativeSource={RelativeSource AncestorType=Expander}, Path=DataContext}" />
+                                                    <Button Content="Rename"
+                                                     Click="RenameFileButton_Click"
+                                                     Tag="{Binding}"
+                                                     DataContext="{Binding RelativeSource={RelativeSource AncestorType=Expander}, Path=DataContext}"
+                                                     Margin="10,0,0,0"/>
+                                                    <Button Content="Move"
+                                                     Click="MoveFileButton_Click"
+                                                     Tag="{Binding}"
+                                                     DataContext="{Binding RelativeSource={RelativeSource AncestorType=Expander}, Path=DataContext}"
+                                                     Margin="10,0,0,0"/>
+                                                    <Button Content="Delete"
+                                                     Click="DeleteButton_Click"
+                                                     Tag="{Binding}"
+                                                     DataContext="{Binding RelativeSource={RelativeSource AncestorType=Expander}, Path=DataContext}"
+                                                     Margin="10,0,0,0"/>
+                                                </Grid>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>
